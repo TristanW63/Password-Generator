@@ -25,6 +25,25 @@ generateEl.addEventListener('click', () => {
     resultEl.innerText = generatePassword(hasLower, hasUpper, hasNumber, hasSymbol, length);
 });
 
+//copy password
+
+clipboardEl.addEventListener('click', () => {
+    const textarea= document.createElement('textarea');
+    const password = resultEl.innerText;
+
+    if(!password) {
+        return;
+    }
+
+    textarea.value = password;
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand('copy');
+    textarea.remove();
+    alert('Password copied to clipboard!');
+
+})
+
 // generate password function
 
 function generatePassword(lower, upper, number,symbol,length){
@@ -51,7 +70,9 @@ function generatePassword(lower, upper, number,symbol,length){
                 generatedPassword += ranadomFunc[funcName]();
             });
         }
-        console.log(generatedPassword);
+       const finalPassword = generatedPassword.slice(0, length);
+
+       return finalPassword;
 }
 
 
