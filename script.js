@@ -92,3 +92,6 @@ function getRandomSymbol() {
     const symbols = '!@#$%^&*()_+-=,.<>/{}[]';
     return symbols[Math.floor(Math.random() * symbols.length)];
 }
+
+var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+var checkedOne = Array.prototype.slice.call(checkboxes).some(x => x.checked);
