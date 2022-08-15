@@ -16,28 +16,42 @@ const ranadomFunc = {
 };
 
 generateEl.addEventListener('click', () => {
-    const length = lengthEl.ariaValueMax;
+    const length = +lengthEl.value;
     const hasLower = lowercaseEl.checked;
     const hasUpper = uppercaseEl.checked;
     const hasNumber = numbersEl.checked;
     const hasSymbol = symbolsEl.checked;
 
-    resultEl.innerText = generatePassword(hasLower, hasNumber, hasSymbol, hasUpper, length);
+    resultEl.innerText = generatePassword(hasLower, hasUpper, hasNumber, hasSymbol, length);
 });
 
 // generate password function
 
 function generatePassword(lower, upper, number,symbol,length){
-    let generatePassword ='';
+    let generatedPassword ='';
 
     const typesCount = lower + upper + number + symbol;
 
-    console.log('typesCount: ', typesCount);
+    //console.log('typesCount: ', typesCount);
 
-    const typesArr = [{lower}, {upper}, {number}, {symbol}];
+    const typesArr = [{lower}, {upper}, {number}, {symbol}].filter(
+        
+        item => Object.values(item)[0]
+    );
 
-    console.log('typesArr: ', typesArr);
+    //console.log('typesArr: ', typesArr);
 
+        if(typesCount === 0) {
+            return '';
+        }
+        for (let i = 0; i < length; i += typesCount) {
+            typesArr.forEach(type => {
+                const funcName = Object.keys(type)[0];
+                //console.log('funcName: ', funcName);
+                generatedPassword += ranadomFunc[funcName]();
+            });
+        }
+        console.log(generatedPassword);
 }
 
 
